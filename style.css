@@ -56,6 +56,7 @@ h1 {
   top: 20px;
   right: 20px;
   display: flex;
+  flex-direction: column;  /* stack vertically */
   gap: 20px;
   z-index: 999;
 }
@@ -78,9 +79,9 @@ h1 {
 
 #player {
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   left: 50px;
-  width: 150px; /* increased from 70px */
+  width: 150px;
   height: auto;
   image-rendering: pixelated;
   z-index: 2;
@@ -134,13 +135,13 @@ h1 {
   }
 
   .top-buttons {
-    position: absolute;
-    top: 10px;
+    top: auto;
+    bottom: 10px; /* move to bottom of screen */
     right: 10px;
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 10px;
-    z-index: 999;
   }
 
   .game-btn {
