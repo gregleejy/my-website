@@ -36,7 +36,7 @@ function jump() {
   let position = 0;
 
   const upInterval = setInterval(() => {
-    if (position >= isMobile / 3) {
+    if (position >= isMobile / 2.5) {
       clearInterval(upInterval);
 
       const downInterval = setInterval(() => {
@@ -44,12 +44,12 @@ function jump() {
           clearInterval(downInterval);
           isJumping = false;
         } else {
-          position -= 7;
+          position -= 3;
           player.style.bottom = position + "px";
         }
       }, 20);
     } else {
-      position += 7;
+      position += 20;
       player.style.bottom = position + "px";
     }
   }, 20);
