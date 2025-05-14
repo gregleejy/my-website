@@ -44,7 +44,7 @@ function jump() {
           clearInterval(downInterval);
           isJumping = false;
         } else {
-          position -= 3;
+          position -= 4;
           player.style.bottom = position + "px";
         }
       }, 20);
