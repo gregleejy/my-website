@@ -36,7 +36,7 @@ function jump() {
   let position = 0;
 
   const upInterval = setInterval(() => {
-    if (position >= isMobile / 2) {
+    if (position >= isMobile / 3 * 2) {
       clearInterval(upInterval);
 
       const downInterval = setInterval(() => {
