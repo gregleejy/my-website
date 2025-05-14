@@ -96,15 +96,33 @@ h1 {
   z-index: 1;
 }
 
+/* Mobile-first responsive styles */
 @media (max-width: 768px) {
-  /* Make player and obstacle scale down for mobile */
-  #player,
-  #obstacle {
-    width: 25vw;
-    max-width: 100px;
+  body {
+    overflow: auto;
   }
 
-  /* Adjust spacing from edges */
+  .game-container {
+    width: 100vw;
+    height: 75vh;
+    margin-top: 10vh;
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #player,
+  #obstacle {
+    width: 20vw;
+    max-width: 80px;
+    height: auto;
+    image-rendering: pixelated;
+  }
+
   #player {
     bottom: 5vh;
     left: 5vw;
@@ -112,35 +130,32 @@ h1 {
 
   #obstacle {
     bottom: 5vh;
-    right: -25vw;
+    right: -20vw;
   }
 
-  /* Shrink top buttons slightly */
+  .top-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+  }
+
   .game-btn {
     font-size: 12px;
-    padding: 12px;
+    padding: 10px;
     border-width: 2px;
   }
 
-  /* Let top buttons wrap on narrow screens */
-  .top-buttons {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  /* Shrink score info */
   .info {
-    font-size: 14px;
+    font-size: 12px;
   }
 
-  /* Adjust spacing of score lines */
-  #scoreDisplay { top: 10px; }
-  #highScoreDisplay { top: 40px; }
-  #memoryDisplay { top: 70px; }
-
-  /* Center game over text slightly better */
   h1 {
-    font-size: 18px;
-    top: 35%;
+    font-size: 16px;
+    top: 30%;
   }
 }
+
