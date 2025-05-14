@@ -1,7 +1,7 @@
 const player = document.getElementById("player");
 const obstacle = document.getElementById("obstacle");
 const gameOverText = document.getElementById("gameOverText");
-const isMobile = window.innerWidth <= 768;
+const isMobile = window.innerWidth <= 1000;
 const maxHeight = isMobile ? 80 : 500;
 
 let isJumping = false;
