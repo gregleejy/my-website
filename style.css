@@ -96,3 +96,51 @@ h1 {
   z-index: 1;
 }
 
+@media (max-width: 768px) {
+  /* Make player and obstacle scale down for mobile */
+  #player,
+  #obstacle {
+    width: 25vw;
+    max-width: 100px;
+  }
+
+  /* Adjust spacing from edges */
+  #player {
+    bottom: 5vh;
+    left: 5vw;
+  }
+
+  #obstacle {
+    bottom: 5vh;
+    right: -25vw;
+  }
+
+  /* Shrink top buttons slightly */
+  .game-btn {
+    font-size: 12px;
+    padding: 12px;
+    border-width: 2px;
+  }
+
+  /* Let top buttons wrap on narrow screens */
+  .top-buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Shrink score info */
+  .info {
+    font-size: 14px;
+  }
+
+  /* Adjust spacing of score lines */
+  #scoreDisplay { top: 10px; }
+  #highScoreDisplay { top: 40px; }
+  #memoryDisplay { top: 70px; }
+
+  /* Center game over text slightly better */
+  h1 {
+    font-size: 18px;
+    top: 35%;
+  }
+}

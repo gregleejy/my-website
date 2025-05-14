@@ -137,6 +137,11 @@ document.addEventListener("keydown", (e) => {
     }
   });
   
+document.addEventListener("touchstart", () => {
+  if (!gameRunning) restartGame();
+  jump();
+});
+
   moveObstacle();
   updateDisplays();
   
