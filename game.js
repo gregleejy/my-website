@@ -1,8 +1,7 @@
 const player = document.getElementById("player");
 const obstacle = document.getElementById("obstacle");
 const gameOverText = document.getElementById("gameOverText");
-const isMobile = window.innerWidth <= 768;
-const maxHeight = isMobile ? 5 : 500;
+const isMobile = window.innerHeight;
 
 let isJumping = false;
 let gameRunning = true;
@@ -37,7 +36,7 @@ function jump() {
   let position = 0;
 
   const upInterval = setInterval(() => {
-    if (position >= maxHeight) {
+    if (position >= isMobile / 2) {
       clearInterval(upInterval);
 
       const downInterval = setInterval(() => {
