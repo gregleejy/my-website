@@ -29,65 +29,29 @@ function updateDisplays() {
   memoryDisplay.textContent = `Games Played: ${gamesPlayed}`;
 }
 
-let jumpCount = 0;
-const maxJumps = 2;
-let activeJump = null;
-
 function jump() {
-  if (!gameRunning || jumpCount >= maxJumps) return;
-  jumpCount++;
+  if (isJumping || !gameRunning) return;
+  isJumping = true;
+  let position = 0;
 
-  let position = parseInt(player.style.bottom) || 0;
-  let velocity = 10;             // 🚀 visible lift
-  const gravity = -0.25;         // ⏳ slow fall
-  const hoverTime = 1000;        // 🛸 hover mid-air
-  const maxHeight = 300;         // ⛔ optional height cap
+  const upInterval = setInterval(() => {
+    if (position >= 500) {
+      clearInterval(upInterval);
 
-  if (activeJump) cancelAnimationFrame(activeJump);
-
-  let isHovering = false;
-  let hoverStart = null;
-
-  function animateJump(timestamp) {
-    if (!hoverStart) hoverStart = timestamp;
-
-    // Cap max height so Iron Man doesn’t leave screen
-    if (position >= maxHeight && velocity > 0) {
-      velocity = 0;
+      const downInterval = setInterval(() => {
+        if (position <= 0) {
+          clearInterval(downInterval);
+          isJumping = false;
+        } else {
+          position -= 7;
+          player.style.bottom = position + "px";
+        }
+      }, 20);
+    } else {
+      position += 7;
+      player.style.bottom = position + "px";
     }
-
-    if (!isHovering && velocity <= 0) {
-      isHovering = true;
-      velocity = 0;
-    }
-
-    if (isHovering && timestamp - hoverStart < hoverTime) {
-      player.style.bottom = `${Math.round(position)}px`;
-      activeJump = requestAnimationFrame(animateJump);
-      return;
-    }
-
-    if (isHovering && timestamp - hoverStart >= hoverTime) {
-      isHovering = false;
-      velocity = -0.5;
-    }
-
-    position += velocity;
-    velocity += gravity;
-
-    if (position <= 0) {
-      position = 0;
-      jumpCount = 0;
-      player.style.bottom = "0px";
-      activeJump = null;
-      return;
-    }
-
-    player.style.bottom = `${Math.round(position)}px`;
-    activeJump = requestAnimationFrame(animateJump);
-  }
-
-  activeJump = requestAnimationFrame(animateJump);
+  }, 20);
 }
 
 function checkCollision() {

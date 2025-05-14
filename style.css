@@ -103,18 +103,12 @@ h1 {
     overflow: auto;
   }
 
-  .game-container {
-    width: 100vw;
-    height: 75vh;
-    margin-top: 10vh;
-    background-image: url('background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    image-rendering: pixelated;
-    position: relative;
-    overflow: hidden;
-  }
+.game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
 
   #player,
   #obstacle {
@@ -125,7 +119,7 @@ h1 {
   }
 
   #player {
-    bottom: 5vh;
+    bottom: 0;
     left: 5vw;
   }
 
