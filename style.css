@@ -135,12 +135,11 @@ h1 {
   }
 
   .top-buttons {
-    top: auto;
-    bottom: 10px; /* move to bottom of screen */
+    top: 10px;
     right: 10px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     gap: 10px;
   }
 
