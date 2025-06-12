@@ -1,88 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lee Jia You Greg</title>
-    <style>
-        body {
-            background-color: white;
-            color: #000;
-            font-family: "Times New Roman", Times, serif;
-            font-size: 16px;
-            line-height: 1.5;
-            max-width: 700px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-
-        nav {
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        nav a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #000;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        h2 {
-            font-size: 20px;
-            margin-top: 25px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        p {
-            margin: 5px 0;
-        }
-
-        a {
-            color: black;
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <img src="iron-man.gif" alt="Iron Man Tech" style="width:300px; margin-bottom: 2rem; border-radius: 10px;" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    a.button {
+      padding: 1rem 2rem;
+      background-color: #1e90ff;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    a.button:hover {
+      background-color: #63b3ed;
+    }
+    footer {
+      position: absolute;
+      bottom: 1rem;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+  </style>
 </head>
 <body>
-
-    <!-- Navigation tabs -->
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="research.html">Projects</a> |
-        <a href="publications.html">Publications</a> |
-        <a href="others.html">Others</a>
-    </nav>
-
-    <!-- Page content -->
-    <h1>Lee Jia You Greg</h1>
-    <p><strong>Aspiring AI Engineer</strong></p>
-
-    <h2>Profile</h2>
-    <p>DSTA Merit Scholar</p>
-    <p>Computer Science Undergraduate, AI Major</p>
-    <p>Singapore Management University</p>
-
-    <h2>Contact Info:</h2>
-    <p>Email: greg.lee.2024@computing.smu.edu.sg</p>
-    <p>Phone: +65 8784 5714 </p>
-
-    <h2>Short Bio</h2>
-    <p>I am a Computer Science undergraduate at Singapore Management University, majoring in Artificial Intelligence. I have interests in AI and Machine Learning. Currently exploring applications of AI in defence technology.</p>
-
-    <h2>Recent News</h2>
-    <p>NEW Working on "Your Missing AI Semester".</p>
-    <p>NEW Received the DSTA Merit Scholarship (2025).</p>
-    <p>NEW Working on AI-powered safety systems project (2025).</p>
-
+  <main>
+    <h1>Greg Lee</h1>
+    <h2>DSTA Merit Scholar | AI ML Enthusiast | Applied Research</h2>
+    <div class="button-group">
+      <a class="button" href="https://github.com/gregleejy" target="_blank">GitHub</a>
+      <a class="button" href="https://leetcode.com/u/gregleejy/">LeetCode</a>
+      <a class="button" href="https://www.notion.so/Your-Missing-AI-Semester-1f35a6bb8c008084881dd80914a120d1">Learn AI</a>
+      <a class="button" href="mailto:gregleejiayou@hotmail.com">Email Me</a>
+    </div>
+  </main>
+  <footer>
+    &copy; 2025 Lee Jia You Greg. Built for the future of defence technology.
+  </footer>
 </body>
 </html>
