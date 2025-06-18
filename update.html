@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Live Scores</title>
+  <meta charset="UTF-8">
+  <title>Group Stage Rankings</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
     h2 { margin-top: 30px; }
-    .team { display: flex; justify-content: space-between; margin: 8px 0; }
+    .team { display: flex; justify-content: space-between; margin: 8px 0; align-items: center; }
+    .score-controls button { margin: 0 5px; }
     .group { border: 1px solid #ccc; padding: 10px; border-radius: 10px; margin-bottom: 20px; }
   </style>
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
-  <h1>Live Group Rankings</h1>
+  <h1>Group Stage Rankings</h1>
   <div id="groups"></div>
 
   <script>
+    // Firebase config (from your project)
     const firebaseConfig = {
       apiKey: "AIzaSyCuXuIPU5o7-WtBa8p8rEQwy7xv2rofCAc",
       authDomain: "diva-score-tracker.firebaseapp.com",
@@ -25,12 +28,15 @@
       projectId: "diva-score-tracker",
       storageBucket: "diva-score-tracker.firebasestorage.app",
       messagingSenderId: "684166881618",
-      appId: "1:684166881618:web:0840dd584f2f1ac37d5a8b"
+      appId: "1:684166881618:web:0840dd584f2f1ac37d5a8b",
+      measurementId: "G-YCM3PR0HVE"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+    // Teams by Group
     const groupsData = {
       G1: ["Wednesday FC 1", "Nighthawks", "Soft Kitty", "HILDERINC LADIES 5", "Mixed nuts", "Lions 1"],
       G2: ["The Divas", "Lions 2", "Ayer Rajah Gryphons", "HILDERINC LADIES 1", "HILDERINC LADIES 2", "ET A", "Lions 3"],
@@ -38,7 +44,8 @@
       G4: ["HILDERINC LADIES 3", "HILDERINC LADIES 6", "SCC Pumas", "MFC", "FUEGO CHICAS", "Braca Vita FC", "trauma bonded"]
     };
 
-    function renderGroups(scores) {
+    // Render Groups with live scores
+    const renderGroups = (scores) => {
       const container = document.getElementById("groups");
       container.innerHTML = "";
 
@@ -50,28 +57,52 @@
         heading.textContent = `Group ${groupName}`;
         groupDiv.appendChild(heading);
 
-        const sorted = [...teams].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
+        const sortedTeams = [...teams].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
 
-        sorted.forEach(team => {
+        sortedTeams.forEach(team => {
           const teamDiv = document.createElement("div");
           teamDiv.className = "team";
 
           const nameSpan = document.createElement("span");
           nameSpan.textContent = team;
 
+          const score = scores[team] || 0;
+
           const scoreSpan = document.createElement("span");
-          scoreSpan.textContent = scores[team] || 0;
+          scoreSpan.textContent = score;
+          scoreSpan.id = `score-${team}`;
+
+          const controls = document.createElement("div");
+          controls.className = "score-controls";
+
+          const incBtn = document.createElement("button");
+          incBtn.textContent = "+";
+          incBtn.onclick = () => updateScore(team, score + 1);
+
+          const decBtn = document.createElement("button");
+          decBtn.textContent = "−";
+          decBtn.onclick = () => updateScore(team, score - 1);
+
+          controls.appendChild(decBtn);
+          controls.appendChild(scoreSpan);
+          controls.appendChild(incBtn);
 
           teamDiv.appendChild(nameSpan);
-          teamDiv.appendChild(scoreSpan);
+          teamDiv.appendChild(controls);
           groupDiv.appendChild(teamDiv);
         });
 
         container.appendChild(groupDiv);
       });
-    }
+    };
 
-    db.ref("scores").on("value", (snapshot) => {
+    // Update Firebase when a score changes
+    const updateScore = (team, newScore) => {
+      db.ref('scores/' + team).set(newScore);
+    };
+
+    // Re-render on any DB update
+    db.ref('scores').on('value', (snapshot) => {
       const scores = snapshot.val() || {};
       renderGroups(scores);
     });
