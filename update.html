@@ -2,25 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Group Stage Rankings</title>
+  <title>Admin – Update Tournament</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h2 { margin-top: 30px; }
-    .team { display: flex; justify-content: space-between; margin: 8px 0; align-items: center; }
-    .score-controls button { margin: 0 5px; }
-    .group { border: 1px solid #ccc; padding: 10px; border-radius: 10px; margin-bottom: 20px; }
+    body { font-family: Arial; padding: 20px; }
+    section { margin-bottom: 40px; }
+    .team, .fixture { display: flex; align-items: center; margin: 8px 0; }
+    .team span { width: 200px; }
+    .fixture select { margin: 0 10px; }
   </style>
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body>
+  <h1>Update Tournament Admin</h1>
 
-  <h1>Group Stage Rankings</h1>
-  <div id="groups"></div>
+  <section>
+    <h2>Group Stage – Scores</h2>
+    <div id="group-scores"></div>
+  </section>
+
+  <section>
+    <h2>Quarter Finals Fixtures</h2>
+    <div id="quarters-cup-fixtures"></div>
+    <div id="quarters-plate-fixtures"></div>
+  </section>
+
+  <section>
+    <h2>Semi Finals Fixtures</h2>
+    <div id="semis-cup-fixtures"></div>
+    <div id="semis-plate-fixtures"></div>
+  </section>
+
+  <section>
+    <h2>Finals Fixtures</h2>
+    <div id="finals-cup-fixtures"></div>
+    <div id="finals-plate-fixtures"></div>
+  </section>
 
   <script>
-    // Firebase config (from your project)
     const firebaseConfig = {
       apiKey: "AIzaSyCuXuIPU5o7-WtBa8p8rEQwy7xv2rofCAc",
       authDomain: "diva-score-tracker.firebaseapp.com",
@@ -28,83 +47,95 @@
       projectId: "diva-score-tracker",
       storageBucket: "diva-score-tracker.firebasestorage.app",
       messagingSenderId: "684166881618",
-      appId: "1:684166881618:web:0840dd584f2f1ac37d5a8b",
-      measurementId: "G-YCM3PR0HVE"
+      appId: "1:684166881618:web:0840dd584f2f1ac37d5a8b"
     };
-
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Teams by Group
-    const groupsData = {
-      G1: ["Wednesday FC 1", "Nighthawks", "Soft Kitty", "HILDERINC LADIES 5", "Mixed nuts", "Lions 1"],
-      G2: ["The Divas", "Lions 2", "Ayer Rajah Gryphons", "HILDERINC LADIES 1", "HILDERINC LADIES 2", "ET A", "Lions 3"],
-      G3: ["HILDERINC LADIES 7", "HILDERINC LADIES 4", "FCSUTD", "WFC2", "Big Balls", "Chicas & Cleats", "ET B"],
-      G4: ["HILDERINC LADIES 3", "HILDERINC LADIES 6", "SCC Pumas", "MFC", "FUEGO CHICAS", "Braca Vita FC", "trauma bonded"]
-    };
+    const allTeams = Array.prototype.concat(...Object.values({
+      G1:["Wednesday FC 1","Nighthawks","Soft Kitty","HILDERINC LADIES 5","Mixed nuts","Lions 1"],
+      G2:["The Divas","Lions 2","Ayer Rajah Gryphons","HILDERINC LADIES 1","HILDERINC LADIES 2","ET A","Lions 3"],
+      G3:["HILDERINC LADIES 7","HILDERINC LADIES 4","FCSUTD","WFC2","Big Balls","Chicas & Cleats","ET B"],
+      G4:["HILDERINC LADIES 3","HILDERINC LADIES 6","SCC Pumas","MFC","FUEGO CHICAS","Braca Vita FC","trauma bonded"]
+    }));
 
-    // Render Groups with live scores
-    const renderGroups = (scores) => {
-      const container = document.getElementById("groups");
-      container.innerHTML = "";
+    const stages = [
+      { name:'quarters', count:4 },
+      { name:'semis',   count:2 },
+      { name:'finals',  count:1 }
+    ];
+    const types = ['cup','plate'];
 
-      Object.entries(groupsData).forEach(([groupName, teams]) => {
-        const groupDiv = document.createElement("div");
-        groupDiv.className = "group";
-
-        const heading = document.createElement("h2");
-        heading.textContent = `Group ${groupName}`;
-        groupDiv.appendChild(heading);
-
-        const sortedTeams = [...teams].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
-
-        sortedTeams.forEach(team => {
-          const teamDiv = document.createElement("div");
-          teamDiv.className = "team";
-
-          const nameSpan = document.createElement("span");
-          nameSpan.textContent = team;
-
-          const score = scores[team] || 0;
-
-          const scoreSpan = document.createElement("span");
-          scoreSpan.textContent = score;
-          scoreSpan.id = `score-${team}`;
-
-          const controls = document.createElement("div");
-          controls.className = "score-controls";
-
-          const incBtn = document.createElement("button");
-          incBtn.textContent = "+";
-          incBtn.onclick = () => updateScore(team, score + 1);
-
-          const decBtn = document.createElement("button");
-          decBtn.textContent = "−";
-          decBtn.onclick = () => updateScore(team, score - 1);
-
-          controls.appendChild(decBtn);
-          controls.appendChild(scoreSpan);
-          controls.appendChild(incBtn);
-
-          teamDiv.appendChild(nameSpan);
-          teamDiv.appendChild(controls);
-          groupDiv.appendChild(teamDiv);
+    function makeFixtureControls(stage, type, containerId) {
+      const cont = document.getElementById(containerId);
+      cont.innerHTML = `<h3>${stage.charAt(0).toUpperCase()+stage.slice(1)} – ${type.toUpperCase()}</h3>`;
+      for(let i=0;i<stages.find(s=>s.name===stage).count;i++){
+        const div = document.createElement('div');
+        div.className = 'fixture';
+        div.innerHTML = `
+          <label>Match ${i+1}:</label>
+          <select id="${stage}-${type}-${i}-a"></select>
+          vs
+          <select id="${stage}-${type}-${i}-b"></select>
+        `;
+        cont.appendChild(div);
+        allTeams.forEach(t=>{
+          div.querySelector(`#${stage}-${type}-${i}-a`).innerHTML += `<option>${t}</option>`;
+          div.querySelector(`#${stage}-${type}-${i}-b`).innerHTML += `<option>${t}</option>`;
         });
+        [0,1].forEach(side=>{
+          div.querySelector(`#${stage}-${type}-${i}-${side===0?'a':'b'}`)
+            .onchange = () => updateFixture(stage, type, i);
+        });
+      }
+    }
 
-        container.appendChild(groupDiv);
+    function updateFixture(stage, type, idx) {
+      const a = document.getElementById(`${stage}-${type}-${idx}-a`).value;
+      const b = document.getElementById(`${stage}-${type}-${idx}-b`).value;
+      db.ref(`fixtures/${stage}/${type}/${idx}`).set({a,b});
+    }
+
+    function makeScoreControls() {
+      const cont = document.getElementById("group-scores");
+      allTeams.forEach(team => {
+        const div = document.createElement('div');
+        div.className = 'team';
+        div.innerHTML = `
+          <span>${team}</span>
+          <button>-</button>
+          <span id="score-${team}">0</span>
+          <button>+</button>`;
+        cont.appendChild(div);
+        div.querySelector('button:first-of-type').onclick =() => changeScore(team, -1);
+        div.querySelector('button:last-of-type').onclick =() => changeScore(team, +1);
       });
-    };
+    }
+    function changeScore(team, delta) {
+      db.ref('scores/' + team).once('value', snap=>{
+        const ns = (snap.val()||0) + delta;
+        db.ref('scores/' + team).set(ns);
+      });
+    }
 
-    // Update Firebase when a score changes
-    const updateScore = (team, newScore) => {
-      db.ref('scores/' + team).set(newScore);
-    };
-
-    // Re-render on any DB update
-    db.ref('scores').on('value', (snapshot) => {
-      const scores = snapshot.val() || {};
-      renderGroups(scores);
+    db.ref().on('value', snap => {
+      const v = snap.val() || {};
+      makeScoreControls();
+      stages.forEach(s => types.forEach(t=>makeFixtureControls(s.name, t, `${s.name}-${t}-fixtures`)));
+      // update fixture selects from existing data
+      Object.entries(v.fixtures||{}).forEach(([stage, typesObj])=>{
+        Object.entries(typesObj).forEach(([type, fixtures])=>{
+          fixtures.forEach((fix, i) => {
+            document.getElementById(`${stage}-${type}-${i}-a`).value = fix.a;
+            document.getElementById(`${stage}-${type}-${i}-b`).value = fix.b;
+          });
+        });
+      });
+      // update scores
+      Object.entries(v.scores||{}).forEach(([team, score])=>{
+        const el = document.getElementById(`score-${team}`);
+        if(el) el.textContent = score;
+      });
     });
   </script>
 </body>

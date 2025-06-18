@@ -1,21 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Live Scores</title>
+  <meta charset="UTF-8">
+  <title>GregLeeJY Tournament</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h2 { margin-top: 30px; }
-    .team { display: flex; justify-content: space-between; margin: 8px 0; }
-    .group { border: 1px solid #ccc; padding: 10px; border-radius: 10px; margin-bottom: 20px; }
+    body { font-family: Arial; padding: 20px; }
+    nav { margin-bottom: 20px; }
+    nav button { margin-right: 10px; padding: 10px; }
+    .tab { display: none; }
+    .active { display: block; }
+    .fixture-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    .fixture-table th, .fixture-table td { border: 1px solid #ccc; padding: 8px; text-align: left; }
   </style>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body>
+  <h1>GregLeeJY Tournament</h1>
 
-  <h1>Live Group Rankings</h1>
-  <div id="groups"></div>
+  <nav>
+    <button onclick="showTab('group')">Group Stage</button>
+    <button onclick="showTab('quarters')">Quarters</button>
+    <button onclick="showTab('semis')">Semis</button>
+    <button onclick="showTab('finals')">Finals</button>
+  </nav>
+
+  <div id="group" class="tab">
+    <h2>Group Stage</h2>
+    <div id="groups"></div>
+  </div>
+
+  <div id="quarters" class="tab">
+    <h2>Quarter Finals</h2>
+    <h3>Cup</h3>
+    <table class="fixture-table" id="quarters-cup"></table>
+    <h3>Plate</h3>
+    <table class="fixture-table" id="quarters-plate"></table>
+  </div>
+
+  <div id="semis" class="tab">
+    <h2>Semi Finals</h2>
+    <h3>Cup</h3>
+    <table class="fixture-table" id="semis-cup"></table>
+    <h3>Plate</h3>
+    <table class="fixture-table" id="semis-plate"></table>
+  </div>
+
+  <div id="finals" class="tab">
+    <h2>Finals</h2>
+    <h3>Cup</h3>
+    <table class="fixture-table" id="finals-cup"></table>
+    <h3>Plate</h3>
+    <table class="fixture-table" id="finals-plate"></table>
+  </div>
 
   <script>
     const firebaseConfig = {
@@ -27,7 +64,6 @@
       messagingSenderId: "684166881618",
       appId: "1:684166881618:web:0840dd584f2f1ac37d5a8b"
     };
-
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
@@ -38,42 +74,46 @@
       G4: ["HILDERINC LADIES 3", "HILDERINC LADIES 6", "SCC Pumas", "MFC", "FUEGO CHICAS", "Braca Vita FC", "trauma bonded"]
     };
 
+    function showTab(id) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+    showTab('group');
+
     function renderGroups(scores) {
       const container = document.getElementById("groups");
       container.innerHTML = "";
-
       Object.entries(groupsData).forEach(([groupName, teams]) => {
-        const groupDiv = document.createElement("div");
-        groupDiv.className = "group";
-
-        const heading = document.createElement("h2");
-        heading.textContent = `Group ${groupName}`;
-        groupDiv.appendChild(heading);
-
-        const sorted = [...teams].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
-
-        sorted.forEach(team => {
-          const teamDiv = document.createElement("div");
-          teamDiv.className = "team";
-
-          const nameSpan = document.createElement("span");
-          nameSpan.textContent = team;
-
-          const scoreSpan = document.createElement("span");
-          scoreSpan.textContent = scores[team] || 0;
-
-          teamDiv.appendChild(nameSpan);
-          teamDiv.appendChild(scoreSpan);
-          groupDiv.appendChild(teamDiv);
+        let div = document.createElement('div');
+        div.innerHTML = `<h3>Group ${groupName}</h3>`;
+        teams.sort((a,b)=> (scores[b]||0)-(scores[a]||0)).forEach(team=>{
+          div.innerHTML += `<div>${team} — ${scores[team]||0}</div>`;
         });
-
-        container.appendChild(groupDiv);
+        container.appendChild(div);
       });
     }
 
-    db.ref("scores").on("value", (snapshot) => {
-      const scores = snapshot.val() || {};
-      renderGroups(scores);
+    function renderFixtures(stage, type, containerId, data) {
+      const table = document.getElementById(containerId);
+      table.innerHTML = '<tr><th>Match</th><th>Team A</th><th>Team B</th></tr>';
+      (data[stage]?.[type] || []).forEach((fixture, i) => {
+        table.innerHTML += `<tr>
+          <td>Game ${i+1}</td>
+          <td>${fixture.a || "-"}</td>
+          <td>${fixture.b || "-"}</td>
+        </tr>`;
+      });
+    }
+
+    db.ref().on('value', snapshot => {
+      const v = snapshot.val() || {};
+      renderGroups(v.scores || {});
+      renderFixtures('quarters', 'cup', 'quarters-cup', v.fixtures || {});
+      renderFixtures('quarters', 'plate', 'quarters-plate', v.fixtures || {});
+      renderFixtures('semis', 'cup', 'semis-cup', v.fixtures || {});
+      renderFixtures('semis', 'plate', 'semis-plate', v.fixtures || {});
+      renderFixtures('finals', 'cup', 'finals-cup', v.fixtures || {});
+      renderFixtures('finals', 'plate', 'finals-plate', v.fixtures || {});
     });
   </script>
 </body>
