@@ -96,21 +96,37 @@
       db.ref(`fixtures/${stage}/${type}/${idx}`).set({a,b});
     }
 
-    function makeScoreControls() {
-      const cont = document.getElementById("group-scores");
-      allTeams.forEach(team => {
-        const div = document.createElement('div');
-        div.className = 'team';
-        div.innerHTML = `
-          <span>${team}</span>
-          <button>-</button>
-          <span id="score-${team}">0</span>
-          <button>+</button>`;
-        cont.appendChild(div);
-        div.querySelector('button:first-of-type').onclick =() => changeScore(team, -1);
-        div.querySelector('button:last-of-type').onclick =() => changeScore(team, +1);
-      });
-    }
+function makeScoreControls() {
+  const cont = document.getElementById("group-scores");
+  cont.innerHTML = ""; // 🧹 Clear duplicates before rendering
+
+  const groupings = {
+    G1: ["Wednesday FC 1", "Nighthawks", "Soft Kitty", "HILDERINC LADIES 5", "Mixed nuts", "Lions 1"],
+    G2: ["The Divas", "Lions 2", "Ayer Rajah Gryphons", "HILDERINC LADIES 1", "HILDERINC LADIES 2", "ET A", "Lions 3"],
+    G3: ["HILDERINC LADIES 7", "HILDERINC LADIES 4", "FCSUTD", "WFC2", "Big Balls", "Chicas & Cleats", "ET B"],
+    G4: ["HILDERINC LADIES 3", "HILDERINC LADIES 6", "SCC Pumas", "MFC", "FUEGO CHICAS", "Braca Vita FC", "trauma bonded"]
+  };
+
+  Object.entries(groupings).forEach(([group, teams]) => {
+    const groupTitle = document.createElement("h3");
+    groupTitle.textContent = `Group ${group}`;
+    cont.appendChild(groupTitle);
+
+    teams.forEach(team => {
+      const div = document.createElement('div');
+      div.className = 'team';
+      div.innerHTML = `
+        <span>${team}</span>
+        <button>-</button>
+        <span id="score-${team}">0</span>
+        <button>+</button>`;
+      cont.appendChild(div);
+      div.querySelector('button:first-of-type').onclick = () => changeScore(team, -1);
+      div.querySelector('button:last-of-type').onclick = () => changeScore(team, +1);
+    });
+  });
+}
+
     function changeScore(team, delta) {
       db.ref('scores/' + team).once('value', snap=>{
         const ns = (snap.val()||0) + delta;

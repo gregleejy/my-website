@@ -80,18 +80,34 @@
     }
     showTab('group');
 
-    function renderGroups(scores) {
-      const container = document.getElementById("groups");
-      container.innerHTML = "";
-      Object.entries(groupsData).forEach(([groupName, teams]) => {
-        let div = document.createElement('div');
-        div.innerHTML = `<h3>Group ${groupName}</h3>`;
-        teams.sort((a,b)=> (scores[b]||0)-(scores[a]||0)).forEach(team=>{
-          div.innerHTML += `<div>${team} — ${scores[team]||0}</div>`;
-        });
-        container.appendChild(div);
-      });
-    }
+function renderGroups(scores) {
+  const container = document.getElementById("groups");
+  container.innerHTML = "";
+
+  const groupings = {
+    G1: ["Wednesday FC 1", "Nighthawks", "Soft Kitty", "HILDERINC LADIES 5", "Mixed nuts", "Lions 1"],
+    G2: ["The Divas", "Lions 2", "Ayer Rajah Gryphons", "HILDERINC LADIES 1", "HILDERINC LADIES 2", "ET A", "Lions 3"],
+    G3: ["HILDERINC LADIES 7", "HILDERINC LADIES 4", "FCSUTD", "WFC2", "Big Balls", "Chicas & Cleats", "ET B"],
+    G4: ["HILDERINC LADIES 3", "HILDERINC LADIES 6", "SCC Pumas", "MFC", "FUEGO CHICAS", "Braca Vita FC", "trauma bonded"]
+  };
+
+  Object.entries(groupings).forEach(([groupName, teams]) => {
+    const section = document.createElement("div");
+    section.innerHTML = `<h3>Group ${groupName}</h3>`;
+
+    const table = document.createElement("table");
+    table.className = "fixture-table";
+    table.innerHTML = `<tr><th>Team</th><th>Score</th></tr>`;
+
+    const sorted = [...teams].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
+    sorted.forEach(team => {
+      table.innerHTML += `<tr><td>${team}</td><td>${scores[team] || 0}</td></tr>`;
+    });
+
+    section.appendChild(table);
+    container.appendChild(section);
+  });
+}
 
     function renderFixtures(stage, type, containerId, data) {
       const table = document.getElementById(containerId);
