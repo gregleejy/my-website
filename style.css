@@ -4,32 +4,31 @@
   box-sizing: border-box;
 }
 
-body {
+body, html {
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  background-color: black;
-  height: 100vh;
-  width: 100vw;
-  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .background {
-  display: flex;
-  width: 200vw; /* 2x screen width for looping scroll */
-  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  display: flex;
+  flex-direction: row;
+  width: 200vw; /* 2x screen width to allow looping */
+  height: 100vh;
   animation: scrollBg 20s linear infinite;
 }
 
 .bg {
-  width: 100vw;
+  flex: 0 0 100vw;  /* Each image takes full screen width */
   height: 100vh;
-  object-fit: cover;         /* Ensures it scales without distortion */
-  flex-shrink: 0;            /* Prevents shrinking on small screens */
-  image-rendering: auto;     /* Adjust if pixelated */
+  object-fit: cover;
 }
+
 
 .ironman {
   position: absolute;
@@ -71,4 +70,13 @@ body {
   10%  { opacity: 1; }
   90%  { opacity: 1; }
   100% { opacity: 0; }
+}
+
+@keyframes scrollBg {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw); /* move full width of 1 bg image */
+  }
 }
