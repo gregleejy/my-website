@@ -14,7 +14,7 @@ body {
 
 .background {
   display: flex;
-  width: 200%;
+  width: 200vw; /* 2x screen width for looping scroll */
   height: 100vh;
   position: absolute;
   top: 0;
@@ -26,7 +26,9 @@ body {
 .bg {
   width: 100vw;
   height: 100vh;
-  object-fit: cover;
+  object-fit: cover;         /* Ensures it scales without distortion */
+  flex-shrink: 0;            /* Prevents shrinking on small screens */
+  image-rendering: auto;     /* Adjust if pixelated */
 }
 
 .ironman {
