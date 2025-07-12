@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.background {
+  display: flex;
+  width: 200%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  animation: scrollBg 20s linear infinite;
+}
+
+.bg {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.ironman {
+  position: absolute;
+  top: 40%;
+  left: 40px; /* Stays on the left side */
+  width: 150px;
+  z-index: 10;
+}
+
+/* Animation to scroll background */
+@keyframes scrollBg {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100vw); }
+}
+
+#status-text {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: white;
+  z-index: 100;
+  font-family: 'Pixelify Sans', monospace;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px #000;
+  opacity: 0;
+  animation: fadeInOut 5s linear infinite;
+  image-rendering: pixelated;
+  text-shadow:
+  1px 1px 0 #000,
+  -1px 1px 0 #000,
+  1px -1px 0 #000,
+  -1px -1px 0 #000;
+}
+
+@keyframes fadeInOut {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { opacity: 0; }
+}
