@@ -1,82 +1,157 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Reset and base */
 body, html {
   margin: 0;
   padding: 0;
   overflow: hidden;
   height: 100%;
-  width: 100%;
+  font-family: 'Pixelify Sans', monospace;
+  background: black;
 }
 
+/* Scrolling background */
 .background {
+  display: flex;
+  width: 200vw;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  flex-direction: row;
-  width: 200vw; /* 2x screen width to allow looping */
-  height: 100vh;
   animation: scrollBg 20s linear infinite;
+  z-index: 0;
 }
 
 .bg {
-  flex: 0 0 100vw;  /* Each image takes full screen width */
+  flex: 0 0 100vw;
   height: 100vh;
   object-fit: cover;
 }
 
-
+/* Iron Man */
 .ironman {
   position: absolute;
   top: 40%;
-  left: 40px; /* Stays on the left side */
-  width: 150px;
-  z-index: 10;
+  left: 40px;
+  width: 120px;
+  z-index: 1;
 }
 
-/* Animation to scroll background */
-@keyframes scrollBg {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100vw); }
-}
-
-#status-text {
+/* Loading screen */
+#loading-screen {
   position: absolute;
   top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 20px;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
   color: white;
-  z-index: 100;
+  font-size: 20px;
+}
+
+#loading-message {
+  font-size: 18px;
+  margin-top: 8px;
+  color: cyan;
+}
+
+#loading-text {
+  font-size: 20px;
+}
+
+#loading-bar-container {
+  width: 80%;
+  height: 10px;
+  background: #444;
+  margin: 10px auto;
+  border: 2px solid white;
+}
+
+#loading-bar {
+  height: 100%;
+  width: 0%;
+  background: lime;
+  transition: width 0.2s linear;
+}
+
+/* Book chapter buttons */
+#chapter-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.chapter-btn {
   font-family: 'Pixelify Sans', monospace;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px #000;
-  opacity: 0;
-  animation: fadeInOut 5s linear infinite;
-  image-rendering: pixelated;
-  text-shadow:
-  1px 1px 0 #000,
-  -1px 1px 0 #000,
-  1px -1px 0 #000,
-  -1px -1px 0 #000;
+  font-size: 18px;
+  background: #111;
+  color: white;
+  border: 3px solid white;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 240px;
+  margin: auto;
 }
 
-@keyframes fadeInOut {
-  0%   { opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { opacity: 0; }
+.chapter-btn:hover {
+  background: white;
+  color: black;
 }
 
+/* Post-loading UI wrapper */
+#post-loading-ui {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Music toggle button */
+#music-toggle {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 16px;
+  background: #111;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#music-toggle:hover {
+  background: white;
+  color: black;
+}
+
+/* Hidden utility class */
+.hidden {
+  display: none;
+}
+
+/* Fade-in animation */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Background scroll animation */
 @keyframes scrollBg {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100vw); /* move full width of 1 bg image */
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100vw); }
+}
+
+#welcome-text {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 24px;
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 1px 1px #000;
 }
