@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>More info!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Back to Portal Button -->
+  <a href="index.html" class="back-btn fixed-back">🔙 Back to Portal</a>
+
+  <!-- Scrolling Background -->
+  <div class="background">
+    <img src="bg-football.png" class="bg" />
+    <img src="bg-football.png" class="bg" />
+  </div>
+
+  <!-- Iron Man -->
+  <img src="iron-man.gif" alt="Iron Man" class="ironman" />
+
+  <!-- Intro Overlay -->
+  <div id="intro-screen">
+    <h1 class="tap-to-begin">▶️ TAP ANYWHERE TO BEGIN</h1>
+  </div>
+
+  <!-- Journey Content -->
+  <div id="tech-journey" class="hidden">
+    <h1 class="journey-title">⚽ More info</h1>
+
+    <div id="entry-container" class="slide-in entry-box"></div>
+
+    <div class="journey-buttons">
+      <button id="prev-entry" style="display: none;">⬅️ Back</button>
+      <button id="next-entry" style="display: none;">➡️ Next</button>
+      <button id="toggle-music">🔇 Mute Music</button>
+    </div>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="tech-music" loop>
+    <source src="music/football-theme.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <script src="football.js"></script>
+</body>
+
+</html>

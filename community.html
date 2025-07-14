@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Greg's Community Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Back to Portal Button -->
+  <a href="index.html" class="back-btn fixed-back">🔙 Back to Portal</a>
+
+  <!-- Scrolling Background -->
+  <div class="background">
+    <img src="bg-community.png" class="bg" />
+    <img src="bg-community.png" class="bg" />
+  </div>
+
+  <!-- Iron Man -->
+  <img src="iron-man.gif" alt="Iron Man" class="ironman" />
+
+  <!-- Intro Overlay -->
+  <div id="intro-screen">
+    <h1 class="tap-to-begin">▶️ TAP ANYWHERE TO BEGIN</h1>
+  </div>
+
+  <!-- Journey Content -->
+  <div id="tech-journey" class="hidden">
+    <h1 class="journey-title">🌍 Side Quests</h1>
+
+    <!-- Dynamic Entry Container -->
+    <div id="entry-container" class="slide-in"></div>
+
+    <!-- Navigation Buttons -->
+    <div class="journey-buttons">
+      <button id="next-entry" class="nav-button">➡️ Next</button>
+      <button id="prev-entry" class="nav-button">⬅️ Back</button>
+      <button id="toggle-music" class="nav-button">🔇 Mute Music</button>
+    </div>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="tech-music" loop>
+    <source src="music/community-theme.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <script src="community.js"></script>
+</body>
+</html>

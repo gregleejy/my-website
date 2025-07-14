@@ -2,52 +2,61 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Iron Man Portal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Iron Man Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Scrolling Background -->
-    <div class="background">
-        <img src="bg.png" class="bg">
-        <img src="bg.png" class="bg">
+  <!-- Scrolling Background -->
+  <div class="background">
+    <img src="bg.png" class="bg">
+    <img src="bg.png" class="bg">
+  </div>
+
+  <!-- Iron Man -->
+  <img src="iron-man.gif" alt="Iron Man" class="ironman">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div id="loading-message">Booting Systems...</div>
+    <div id="loading-text">Loading: 0%</div>
+    <div id="loading-bar-container">
+      <div id="loading-bar"></div>
     </div>
+  </div>
 
-    <!-- Iron Man -->
-    <img src="iron-man.gif" alt="Iron Man" class="ironman">
-
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div id="loading-message">Booting Systems...</div>
-        <div id="loading-text">Loading: 0%</div>
-        <div id="loading-bar-container">
-            <div id="loading-bar"></div>
-        </div>
+  <!-- Post-loading UI -->
+  <div id="post-loading-ui" class="hidden" style="display: none;">
+    <div id="welcome-text">Welcome to Greg's Journey</div>
+    <div id="chapter-buttons">
+      <a href="technology.html">
+        <button class="chapter-btn">👨‍💻 Tech Quests</button>
+      </a>
+      <a href="community.html">
+        <button class="chapter-btn">🧭 Side Quests</button>
+      </a>
+      <a href="game.html">
+        <button class="chapter-btn">🎮 Play a Game</button>
+      </a>
+      <a href="football.html">
+        <button class="chapter-btn">🙋‍♂️ Contact me</button>
+      </a>
     </div>
-
-    <!-- Post-loading UI -->
-    <div id="post-loading-ui" class="hidden" style="display: none;">
-        <div id="welcome-text">Welcome to Greg's Journey</div>
-        <div id="chapter-buttons">
-            <button class="chapter-btn">📘 Technology</button>
-            <button class="chapter-btn">📕 Community</button>
-            <button class="chapter-btn">📗 Football</button>
-        </div>
-        <button id="music-toggle">🔊 Play Music</button>
-    </div>
+    <button id="music-toggle">🔊 Play Music</button>
+  </div>
 
 
-    <!-- Background Music -->
-    <audio id="bg-music" loop>
-        <source src="background-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="background-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>

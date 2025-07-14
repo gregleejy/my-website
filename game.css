@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: black;
+  font-family: 'Pixelify Sans', monospace;
+  color: white;
+}
+
+/* Game container */
+.game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Iron Man */
+.ironman {
+  position: absolute;
+  bottom: 40px;
+  left: 50px;
+  width: 100px;
+  height: auto;
+  transition: bottom 0.3s ease;
+  z-index: 2;
+}
+
+/* Obstacle */
+.obstacle {
+  position: absolute;
+  bottom: 40px;
+  left: 100vw;
+  width: 130px;
+  height: 130px;
+  animation: moveObstacle 2s linear infinite;
+  object-fit: contain;
+  z-index: 2;
+}
+
+@keyframes moveObstacle {
+  from { left: 100vw; }
+  to { left: -60px; }
+}
+
+/* Ground */
+.ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: #222;
+  z-index: 1;
+}
+
+/* Score */
+.score {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  z-index: 10;
+}
+
+/* Back to Portal */
+.back-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 18px;
+  background: #111;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.back-btn:hover {
+  background: white;
+  color: black;
+}
+
+#jump-instruction {
+  text-align: center;
+  margin-top: 20px; /* adjust spacing as needed */
+  font-size: 24px;
+}
+
+body {
+  background-image: url("background.png"); /* your path */
+  background-repeat: repeat-x;     /* repeats horizontally */
+  background-size: cover;          /* or use 'contain', 'auto', etc. */
+  background-position: center bottom;     /* aligns with ground */
+  background-color: black;         /* fallback color */
+}
+
+.obstacle {
+  position: absolute;
+  bottom: 40px;
+  left: 100vw;
+  width: 60px;
+  height: 60px;
+  animation: moveObstacle 2s linear infinite;
+  object-fit: contain; /* ensures the image scales properly */
+  z-index: 2;
+}
