@@ -10,14 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       title: "📗 Sharing AI knowledge",
       image: "tech-images/24asia.jpg",
-      text: "I’ve always loved breaking down complex concepts. Writing articles has become more than just a way to inform others—it’s a method of self-discipline and reflection. Honestly, I write these pieces to keep myself constantly in check with the latest developments in AI and to reinforce the foundational knowledge I need to explore deeper applications and research. Each article I publish helps me stay connected to the fast-moving landscape of artificial intelligence while sharpening my ability to communicate ideas clearly—an essential skill for anyone pursuing a career in public service. As an aspiring AI engineer, I hope to use this habit not only to grow personally, but to contribute meaningfully to society by making advanced technologies easier to understand, adopt, and trust.",
+      text: "tralalelo.",
       link: "https://medium.com/@gregleejiayou",
       linkText: "View my articles here"
     },
     {
       title: "🤖 Code Literacy",
       image: "tech-images/discrete.jpg",
-      text: "In my free time, I enjoy tackling coding challenges on platforms like LeetCode—usually with a cup of iced americano by my side. It’s my way of keeping myself engaged, sharpening my problem-solving skills, and staying fluent in reading and understanding code. It’s both relaxing and rewarding—a small habit that helps me grow consistently.",
+      text: "bombardiro.",
       link: "https://leetcode.com/u/gregleejy/",
       linkText: "View my leetcode here"
     }

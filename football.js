@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       title: "📬 Let's Connect",
       image: "about-images/trolling.jpg",
-      text: "Whether you are keen to collaborate or have a chat, I’d love to connect!",
+      text: "sup.",
       links: [
         { url: "https://www.linkedin.com/in/gregleejy", text: "🔗 LinkedIn: Greg Lee" },
         { url: "https://t.me/gregleejy", text: "📱 Telegram: @gregleejy" },
