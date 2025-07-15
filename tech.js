@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       title: "💻 Innovation in Action",
       image: "tech-images/dap.jpg",
-      text: "Growing up, I had a strong aptitude for mathematics. However my overall A-Level results didn’t meet expectations—something that drew criticism from peers. Despite this, I stayed true to my interests. During National Service, a friend introduced me to Python, sparking a passion for programming that led me to explore fields from cybersecurity to automation. It was Data Science and AI, however, that truly resonated with me—combining problem-solving with real-world impact. At SMU, I joined the Business Intelligence & Analytics Club’s Data Associate Programme, where I gained hands-on experience and found a like-minded community. Earning a fully-funded DSTA scholarship to pursue Computer Science was a turning point, affirming my growth. Today, as President of SMU BIA, I continue to learn and pay it forward by guiding others along their own tech journeys.",
+      text: "cappucina assassino.",
       link: "https://github.com/gregleejy",
       linkText: "View my projects here"
     },
