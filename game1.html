@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Greg's Technology Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Back to Portal Button -->
+  <a href="index.html" class="back-btn fixed-back">🔙 Back to Portal</a>
+
+
+  <!-- Static black background is handled by body CSS -->
+
+  <!-- Intro Overlay (kept as requested) -->
+  <div id="intro-screen">
+    <h1 class="tap-to-begin">▶️ TAP ANYWHERE TO BEGIN</h1>
+  </div>
+
+  <!-- Simple Interactive Story Game -->
+  <button id="mute-music-btn" class="music-toggle-top">🔇 Mute Music</button>
+  <div id="game-container" class="hidden">
+    <img src="game1-images/1.png" alt="Game scene" class="game-main-image" style="max-width: 100%; border-radius: 12px; margin: 24px auto 16px; display: block; box-shadow: 0 4px 16px #000;" />
+    <div id="story-text" class="story-text"></div>
+    <div class="choice-buttons">
+      <button id="choice1" class="choice-btn"></button>
+      <button id="choice2" class="choice-btn"></button>
+    </div>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="tech-music" loop>
+    <source src="music/sound-of-your-fear.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- External JavaScript -->
+  <script src="game1.js"></script>
+</body>
+
+</html>

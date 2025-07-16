@@ -1,31 +1,120 @@
+/* Top right music toggle for game1 */
+.music-toggle-top {
+  position: fixed;
+  top: 24px;
+  right: 32px;
+  z-index: 10000;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 16px;
+  background: #111;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+.music-toggle-top:hover {
+  background: white;
+  color: #001f33;
+}
+#welcome-text .main-title {
+  font-size: 2.2rem;
+  color: white;
+  font-family: 'Pixelify Sans', monospace;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px #000, 0 0 8px cyan;
+}
+#welcome-text .subtitle {
+  font-size: 1.1rem;
+  color: #000;
+  font-family: 'Pixelify Sans', monospace;
+  letter-spacing: 1px;
+  opacity: 1;
+  text-shadow: 1px 1px 4px #fff;
+}
+/* Debug: Make game-container visible and obvious */
+#game-container {
+  background: rgba(0,0,0,0.85);
+  border: 3px solid rgb(122, 122, 89);
+  border-radius: 16px;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 32px 16px;
+  z-index: 10;
+  position: relative;
+}
+
+/* Interactive Story Game Styles */
+.story-text {
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 40px 0 32px 0;
+  padding: 0 20px;
+  z-index: 2;
+}
+
+.choice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 40px;
+  z-index: 2;
+}
+
+.choice-btn {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.1rem;
+  background: #f7e9b0;
+  color: #2d2300;
+  border: 3px solid #f3e5a6;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  min-width: 200px;
+  box-shadow: 0 2px 8px #b6a76a33;
+  text-shadow: 1px 1px 0 #fff8d6;
+}
+.choice-btn:hover {
+  background: #fff8d6;
+  color: #a68b2c;
+  border-color: #fff8d6;
+}
 /* Reset and base */
 body, html {
   margin: 0;
   padding: 0;
-  overflow: hidden;
   height: 100%;
   font-family: 'Pixelify Sans', monospace;
   background: black;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 /* Scrolling background */
+
 .background {
-  display: flex;
-  width: 200vw;
+  width: 100vw;
   height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
-  animation: scrollBg 20s linear infinite;
   z-index: 0;
+  overflow: hidden;
+}
+
+.scrolling-bg {
+  display: flex;
+  width: 200vw;
+  animation: scrollBg 20s linear infinite;
 }
 
 .bg {
-  flex: 0 0 100vw;
+  width: 100vw;
   height: 100vh;
   object-fit: cover;
+  display: block;
 }
 
 /* Iron Man */
@@ -143,11 +232,7 @@ body, html {
   to   { opacity: 1; }
 }
 
-/* Background scroll animation */
-@keyframes scrollBg {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-100vw); }
-}
+
 
 #welcome-text {
   font-family: 'Pixelify Sans', monospace;
